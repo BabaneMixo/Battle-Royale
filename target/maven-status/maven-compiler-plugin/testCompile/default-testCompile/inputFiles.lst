@@ -1,8 +1,0 @@
-/home/wtc/java/dbn10_robot_worlds/src/test/java/za/co/wethinkcode/RobotWorldsDBN10/commands/QuitCommandTest.java
-/home/wtc/java/dbn10_robot_worlds/src/test/java/za/co/wethinkcode/RobotWorldsDBN10/commands/CommandsTest.java
-/home/wtc/java/dbn10_robot_worlds/src/test/java/za/co/wethinkcode/RobotWorldsDBN10/ClientServer/ClientTest.java
-/home/wtc/java/dbn10_robot_worlds/src/test/java/za/co/wethinkcode/RobotWorldsDBN10/movements/TurnCommandTest.java
-/home/wtc/java/dbn10_robot_worlds/src/test/java/za/co/wethinkcode/RobotWorldsDBN10/movements/ForwardCommandTest.java
-/home/wtc/java/dbn10_robot_worlds/src/test/java/za/co/wethinkcode/RobotWorldsDBN10/movements/BackCommandTest.java
-/home/wtc/java/dbn10_robot_worlds/src/test/java/za/co/wethinkcode/RobotWorldsDBN10/ClientServer/ServerTest.java
-/home/wtc/java/dbn10_robot_worlds/src/test/java/za/co/wethinkcode/RobotWorldsDBN10/world/ObstaclesTest.java
