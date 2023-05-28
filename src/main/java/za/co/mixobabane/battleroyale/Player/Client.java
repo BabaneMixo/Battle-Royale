@@ -42,30 +42,11 @@ public class Client {
             try (Scanner sc = new Scanner(System.in)) {
                 while (socket.isConnected()) {
                     
-                    System.out.println("Enter command to run: ");
-                    String command = sc.nextLine();
-                    if (command.equals("launch")){
-
-                        System.out.println("\n -------------choose your kind--------------------");
-                        System.out.println(" -------------------------------------------------");
-                        System.out.println(" - Kind         - Distance (steps) -      Shots  -");
-                        System.out.println(" -------------------------------------------------");
-                        System.out.println(" - 1 Sniper     -       5          -        1    -");
-                        System.out.println(" -------------------------------------------------");
-                        System.out.println(" - 2 AK-47      -       4          -        2    -");
-                        System.out.println(" -------------------------------------------------");
-                        System.out.println(" - 3 Steyr AUG  -       3          -        3    -");
-                        System.out.println(" -------------------------------------------------");
-                        System.out.println(" - 4 M4 carbine -       2          -        4    -");
-                        System.out.println(" -------------------------------------------------");
-                        System.out.println(" - 5 Pistol     -       1          -        5    -");
-                        System.out.println(" -------------------------------------------------");
-                        System.out.println(" -------------------------------------------------\n");
-
-                    }
-
-                    System.out.println("Command arguments: ");
-                    JSONArray arguments = new JSONArray(sc.nextLine());
+                    System.out.println("What do you want to do next?: ");
+                    String input = sc.nextLine();                
+                    JSONArray arguments = new JSONArray();
+                    arguments.put(input.split(" ")[1]);
+                    String command = input.split(" ")[0];
 
                     Request request = new Request(username,command,arguments);
 
@@ -123,8 +104,10 @@ public class Client {
     public static void main(String[] args) throws IOException {
         try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Welcome to Battle Royale\n");
-           System.out.println("What do you want to name your avatar?");
+           System.out.println(RED+"What do you want to name your avatar?");
             String username = sc.nextLine();
+
+            welcome();
 
             Socket socket = new Socket("localhost",5355);
             Client client = new Client(socket,username);
@@ -135,8 +118,25 @@ public class Client {
         }
     }
 
-    public void welcome(){
-        System.out.println();
+    public static void welcome(){
+
+
+        System.out.println("\n -------------choose your kind--------------------");
+        System.out.println(" -------------------------------------------------");
+        System.out.println(" - Kind         - Distance (steps) -      Shots  -");
+        System.out.println(" -------------------------------------------------");
+        System.out.println(" - 1 Sniper     -       5          -        1    -");
+        System.out.println(" -------------------------------------------------");
+        System.out.println(" - 2 AK-47      -       4          -        2    -");
+        System.out.println(" -------------------------------------------------");
+        System.out.println(" - 3 Steyr AUG  -       3          -        3    -");
+        System.out.println(" -------------------------------------------------");
+        System.out.println(" - 4 M4 carbine -       2          -        4    -");
+        System.out.println(" -------------------------------------------------");
+        System.out.println(" - 5 Pistol     -       1          -        5    -");
+        System.out.println(" -------------------------------------------------");
+        System.out.println(" -------------------------------------------------\n");
+
 
     }
 
