@@ -123,10 +123,10 @@ public class Client {
     public static void main(String[] args) throws IOException {
         try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Welcome to Battle Royale\n");
-//            System.out.println("What do you want to name your avatar?");
+           System.out.println("What do you want to name your avatar?");
             String username = sc.nextLine();
 
-            Socket socket = new Socket("192.168.43.240 ",5355);
+            Socket socket = new Socket("localhost",5355);
             Client client = new Client(socket,username);
             client.listenForMessage();
             client.sendMessage();
