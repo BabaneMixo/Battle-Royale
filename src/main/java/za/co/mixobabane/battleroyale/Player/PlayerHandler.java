@@ -68,13 +68,6 @@ public class PlayerHandler implements Runnable {
                         continue;
                     }
 
-                // }else if (robots.size()>0 && jsonObject.get("command").equals("robots")) {
-                //     for (Avatar avatar : robots) {
-
-                //         avatar.handleCommand(command);
-                //         broadCastMessage(avatar.setUserOutput().toString());
-                //     }
-
                 }else if (avatars.size()>0 && !jsonObject.get("command").equals("launch")) {
                 for (Avatar avatar : avatars) {
                     if (avatar.getRobotName().equals(jsonObject.get("name"))) {
