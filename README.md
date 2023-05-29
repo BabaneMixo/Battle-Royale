@@ -1,6 +1,5 @@
 # Battle-Royale
 
-# Tic-Tac-Toe
 
 About this program
 

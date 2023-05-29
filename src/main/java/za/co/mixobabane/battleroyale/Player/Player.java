@@ -11,12 +11,16 @@ import java.util.Scanner;
 
 public class Player {
     private Socket socket;
+    public static final String RED = "\033[0;31m";     // RED
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
     private String username;
     private JSONObject requestMsg = new JSONObject();
     private JSONObject responseMsg = new JSONObject();
-
+    public static final String GREEN_BOLD_BRIGHT = "\033[1;92m"; // GREEN
+    public static final String RED_BOLD_BRIGHT = "\033[1;91m";   // RED
+    public static final String GREEN_UNDERLINED = "\033[4;32m";  // GREEN
+    public static final String BLUE_BOLD_BRIGHT = "\033[1;94m";  // BLUE
 
     public Player(Socket socket, String username) {
         try {
@@ -32,7 +36,6 @@ public class Player {
 
     public void sendMessage() {
         try {
-            System.out.println("Welcome " + username);
             bufferedWriter.newLine();
             bufferedWriter.flush();
 
@@ -40,7 +43,7 @@ public class Player {
             try (Scanner sc = new Scanner(System.in)) {
                 while (socket.isConnected()) {
                     Thread.sleep(1000);
-                    System.out.println("What do you want to do next?: ");
+                    System.out.println(RED_BOLD_BRIGHT+"What do you want to do next "+username+":?");
                     String input = sc.nextLine();                
                     JSONArray arguments = new JSONArray();
                     String command = input.split(" ")[0];
@@ -105,8 +108,8 @@ public class Player {
 
     public static void main(String[] args) throws IOException {
         try (Scanner sc = new Scanner(System.in)) {
-            System.out.println("Welcome to Battle Royale\n");
-           System.out.println("What do you want to name your avatar?");
+            System.out.println(GREEN_BOLD_BRIGHT+"WELCOME TO BATTLE ROYALE\n");
+           System.out.println(RED_BOLD_BRIGHT+"What do you want to name your avatar?");
             String username = sc.nextLine();
 
             Thread.sleep(1000);
@@ -123,22 +126,42 @@ public class Player {
         }
     }
 
-    public static void welcome(){
-
-
-        System.out.println("\n -------------choose your kind--------------------");
+    public static void welcome() throws InterruptedException {
+        Thread.sleep(700);
+        System.out.println(BLUE_BOLD_BRIGHT+"==================== WELCOME =====================");
+        Thread.sleep(700);
+        System.out.println("====================== TO ========================");
+        Thread.sleep(700);
+        System.out.println("===================== BATTLE =====================");
+        Thread.sleep(700);
+        System.out.println("===================== ROYALE =====================");
+        Thread.sleep(700);
+        System.out.println("\n ********Choose AVATAR type and Launch*********");
+        Thread.sleep(700);
         System.out.println(" -------------------------------------------------");
+        Thread.sleep(700);
         System.out.println(" - Kind         - Distance (steps) -      Shots  -");
+        Thread.sleep(700);
         System.out.println(" -------------------------------------------------");
+        Thread.sleep(700);
         System.out.println(" - 1 Sniper     -       5          -        1    -");
+        Thread.sleep(700);
         System.out.println(" -------------------------------------------------");
+        Thread.sleep(700);
         System.out.println(" - 2 AK-47      -       4          -        2    -");
+        Thread.sleep(700);
         System.out.println(" -------------------------------------------------");
+        Thread.sleep(700);
         System.out.println(" - 3 Steyr AUG  -       3          -        3    -");
+        Thread.sleep(700);
         System.out.println(" -------------------------------------------------");
+        Thread.sleep(700);
         System.out.println(" - 4 M4 carbine -       2          -        4    -");
+        Thread.sleep(700);
         System.out.println(" -------------------------------------------------");
+        Thread.sleep(700);
         System.out.println(" - 5 Pistol     -       1          -        5    -");
+        Thread.sleep(700);
         System.out.println(" -------------------------------------------------");
         System.out.println(" -------------------------------------------------\n");
 
