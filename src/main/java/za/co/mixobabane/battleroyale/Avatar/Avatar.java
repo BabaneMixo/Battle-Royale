@@ -3,6 +3,7 @@ package za.co.mixobabane.battleroyale.Avatar;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import za.co.mixobabane.battleroyale.Commands.Commands;
+import za.co.mixobabane.battleroyale.World.MedKits;
 import za.co.mixobabane.battleroyale.World.Obstacles;
 import za.co.mixobabane.battleroyale.World.World;
 
@@ -17,7 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
         public static final Position Start = new
                 Position(0,0);
         private World world = new World();
-
+        private int Medkit;
         private String avatarName;
         private String avatarMake;
         private String command;
@@ -88,7 +89,6 @@ import java.util.concurrent.ThreadLocalRandom;
             return this.maxShields;
         }
 
-
         public int getCurrentShields(){
             return this.currentShields;
         }
@@ -105,10 +105,6 @@ import java.util.concurrent.ThreadLocalRandom;
             this.maxShots = maxShots;
         }
 
-        public void setRobotMake(String make){
-            this.avatarMake = make;
-        }
-
         public Status getStatus(){
             return this.status;
         }
@@ -122,6 +118,20 @@ import java.util.concurrent.ThreadLocalRandom;
             return this.currentDirection;
         }
 
+        public void setMedkit() {
+            ArrayList<MedKits> medKits = world.generateMedKits();
+            for (MedKits medkit1: medKits) {
+                if (new Position(medkit1.getBottomLeftX(), medkit1.getBottomLeftY())
+                        .isIn(new Position(position.x(), position.y())
+                                , new Position(position.x(), position.y()))) {
+                }
+            }
+        }
+
+        public int getMedkit() {
+            return Medkit;
+        }
+
         public void setCurrentDirection(Direction direction) {
             this.currentDirection = direction;
         }
@@ -132,13 +142,18 @@ import java.util.concurrent.ThreadLocalRandom;
 
         public void setMessage(JSONObject message) {
             this.message = message;
-
         }
 
         public void setState(String state){
             this.state = state;
         }
 
+        public void setAvatarMake(String make){
+            this.avatarMake = make;
+        }
+        public String getAvatarMake(){
+            return this.avatarMake;
+        }
         public JSONObject getMessage(){
             return this.message;
         }

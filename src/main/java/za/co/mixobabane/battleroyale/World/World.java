@@ -12,6 +12,7 @@ public class World {
 
     private final int visibility = 5;
     private ArrayList<Obstacles> obstacles = new ArrayList<>();
+    private ArrayList<MedKits> medKits = new ArrayList<>();
     private int reloadSeconds = 4;
     private int repairSeconds = 4;
     private ArrayList<Avatar> avatarList = new ArrayList<>();
@@ -43,17 +44,26 @@ public class World {
     }
 
     public ArrayList<Obstacles> getObstacles() {
-        int number = rand.nextInt(1000);
+        int number = rand.nextInt(100);
 
         for (int i =0; i<=number; i++ ) {
-            int x = ThreadLocalRandom.current().nextInt(-10, 10+ 1);
-            int y = ThreadLocalRandom.current().nextInt(-20, 20 + 1);
+            int x = ThreadLocalRandom.current().nextInt(-50, 50+ 1);
+            int y = ThreadLocalRandom.current().nextInt(-100, 100 + 1);
             Obstacles obstacle = new Obstacles(x, y);
             obstacles.add(obstacle);
         }
         return obstacles;
     }
 
+    public ArrayList<MedKits> generateMedKits(){
+        int number = rand.nextInt(10);
+        for (int i =0; i<=number; i++ ) {
+            int x = ThreadLocalRandom.current().nextInt(-50, 50+ 1);
+            int y = ThreadLocalRandom.current().nextInt(-100, 100 + 1);
+            MedKits medKit = new MedKits(x,y);
+            medKits.add(medKit);}
+        return medKits;
+    }
 
 
     public void showObstacles() {

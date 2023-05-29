@@ -12,7 +12,7 @@ public class StateCommand extends Commands{
     @Override
     public boolean runCommand(Avatar avatar) {
         JSONObject state = new JSONObject();
-
+        state.put("Med Kit",avatar.getAvatarMake());
         state.put("position",avatar.getPosition());
         state.put("direction",avatar.getCurrentDirection());
         state.put("shields",avatar.getCurrentShields());
