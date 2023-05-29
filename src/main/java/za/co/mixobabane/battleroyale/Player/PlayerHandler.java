@@ -47,7 +47,7 @@ public class PlayerHandler implements Runnable {
             try{
                 World world = new World(avatars);
                 messageFromClient = bufferedReader.readLine();
-                System.out.println("Client says: " + messageFromClient);
+                System.out.println("Player says: " + messageFromClient);
                 JSONObject jsonObject = new JSONObject(messageFromClient);
                 Commands command = (Commands) Commands.makeCommand(jsonObject);
 
@@ -62,8 +62,7 @@ public class PlayerHandler implements Runnable {
                         avatar.handleCommand(command);
                         avatars.add(avatar);
                         world.addRobotList(avatars);
-                        broadCastMessage(avatar.setUserOutput().toString(4));
-                        broadCastMessage(world.getRobots().toString());
+                        broadCastMessage(avatar.setUserOutput());
                     }else {
                         broadCastMessage("Avatar name has already been used.");
                         continue;

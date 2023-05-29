@@ -15,10 +15,10 @@ public class StateCommand extends Commands{
 
         state.put("position",avatar.getPosition());
         state.put("direction",avatar.getCurrentDirection());
-        state.put("shields",avatar.getShields());
-        state.put("shots"," "+avatar.getShots()+" ");
+        state.put("shields",avatar.getCurrentShields());
+        state.put("shots"," "+avatar.getShotsRemaining());
         state.put("status",avatar.getStatus());
-        avatar.setMessage(state.toString());
+        avatar.setMessage(state);
         avatar.setState(state.toString());
         return true;
     }

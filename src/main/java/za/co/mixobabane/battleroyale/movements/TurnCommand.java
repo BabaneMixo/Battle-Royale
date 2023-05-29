@@ -41,10 +41,10 @@ public class TurnCommand extends Commands {
             turnOutput.put("message","DONE: I turned left");
         }else {
             turnOutput.put("message","Can't turn " + getCommandArgs().get(0));
-            avatar.setMessage(turnOutput.toString());
+            avatar.setMessage(turnOutput);
             return false;
         }
-        avatar.setMessage(turnOutput.toString());
+        avatar.setMessage(turnOutput);
         return true;
     }
 

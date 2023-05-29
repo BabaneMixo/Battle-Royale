@@ -1,6 +1,7 @@
 package za.co.mixobabane.battleroyale.Commands;
 
 
+import org.json.JSONObject;
 import za.co.mixobabane.battleroyale.Avatar.*;
 
 public class ReloadCommand  extends Commands{
@@ -10,8 +11,10 @@ public class ReloadCommand  extends Commands{
 
     @Override
     public boolean runCommand(Avatar avatar) {
-        int waitSeconds = avatar.getReloadSeconds();
-        avatar.setStatus(Status.REPAIR);
+        JSONObject reload = new JSONObject();
+        avatar.setStatus(Status.RELOAD);
+        avatar.setMessage(reload.put("message:","Reloading shots, do not interrupt."));
+
         return true;
     }
 }

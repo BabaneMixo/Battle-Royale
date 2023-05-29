@@ -7,8 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Battle-Royale" />
-        <module name="RobotWorldsDBN10" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="RobotWorldsDBN10" target="16" />
+    </bytecodeTargetLevel>
   </component>
 </project>

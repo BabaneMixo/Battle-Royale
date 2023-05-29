@@ -6,12 +6,10 @@ import za.co.mixobabane.battleroyale.Avatar.Request;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-import static java.awt.Color.BLUE;
-import static java.awt.Color.RED;
-
-public class Client {
+public class Player {
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
@@ -20,7 +18,7 @@ public class Client {
     private JSONObject responseMsg = new JSONObject();
 
 
-    public Client(Socket socket, String username) {
+    public Player(Socket socket, String username) {
         try {
             this.socket = socket;
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -41,19 +39,23 @@ public class Client {
 
             try (Scanner sc = new Scanner(System.in)) {
                 while (socket.isConnected()) {
-                    
+                    Thread.sleep(1000);
                     System.out.println("What do you want to do next?: ");
                     String input = sc.nextLine();                
                     JSONArray arguments = new JSONArray();
-                    arguments.put(input.split(" ")[1]);
                     String command = input.split(" ")[0];
-
+                    String[] arrayList = input.split(" ");
+                    if (arrayList.length>=2){
+                        arguments.put(input.split(" ")[1]);
+                    }
                     Request request = new Request(username,command,arguments);
 
                     bufferedWriter.write(request.toJsonString(username, command, arguments));
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
                 }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
 
             System.out.close();
@@ -72,7 +74,7 @@ public class Client {
                 while (socket.isConnected()){
                     try{
                         msgFromWorld = bufferedReader.readLine();
-                        System.out.println("server says: " + msgFromWorld);
+                        System.out.println(msgFromWorld);
 
                     }catch (IOException e) {
                         closeEverything(socket, bufferedReader, bufferedWriter);
@@ -104,17 +106,20 @@ public class Client {
     public static void main(String[] args) throws IOException {
         try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Welcome to Battle Royale\n");
-           System.out.println(RED+"What do you want to name your avatar?");
+           System.out.println("What do you want to name your avatar?");
             String username = sc.nextLine();
 
+            Thread.sleep(1000);
             welcome();
 
             Socket socket = new Socket("localhost",5355);
-            Client client = new Client(socket,username);
-            client.listenForMessage();
-            client.sendMessage();
+            Player player = new Player(socket,username);
+            player.listenForMessage();
+            player.sendMessage();
 
 
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 

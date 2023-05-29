@@ -23,7 +23,7 @@ public class LookCommand extends Commands{
         JSONObject lookOutput = new JSONObject();
         ArrayList<JSONObject> blocked = new ArrayList<>();
 
-        ArrayList<JSONObject> robotList = avatar.getRobots();
+        ArrayList<Avatar> avatarList = avatar.getRobotList();
         ArrayList<Obstacles> obstaclesList = avatar.getObstacles();
 
         for (Obstacles obstacle: obstaclesList){
@@ -31,7 +31,7 @@ public class LookCommand extends Commands{
                     .isIn(new Position(position.x(),position.y()+visibility)
                             ,new Position(position.x(),position.y()))){
                 JSONObject look = new JSONObject();
-                look.put("direction", Direction.NORTH);
+                look.put("direction",Direction.NORTH);
                 look.put("type","obstacle");
                 look.put("steps",obstacle.getY()- position.y());
                 blocked.add(look);}
@@ -65,43 +65,45 @@ public class LookCommand extends Commands{
             }
         }
 
-        for (JSONObject blockingRobot: robotList){
-            Position robotPosition = (Position) blockingRobot.get("position");
-            if (new Position(robotPosition.x(),robotPosition.y())
-                    .isIn(new Position(position.x()+visibility,position.y())
-                            ,new Position(position.x(),position.y()))){
-                JSONObject look = new JSONObject();
-                look.put("direction",Direction.EAST);
-                look.put("type","robot");
-                look.put("steps",position.x()-robotPosition.x());
-                blocked.add(look);
-            }else if (new Position(robotPosition.x(), robotPosition.y())
-                    .isIn(new Position(position.x()-visibility,position.y())
-                            ,new Position(position.x(),position.y()))){
-                JSONObject look = new JSONObject();
-                look.put("direction",Direction.WEST);
-                look.put("type","robot");
-                look.put("steps",position.x()+robotPosition.x());
-                blocked.add(look);
+        for (Avatar otherAvatar: avatarList) {
 
-            }else if (new Position(robotPosition.x(), robotPosition.y())
-                    .isIn(new Position(position.x(),position.y()+visibility)
-                            ,new Position(position.x(),position.y()))){
-                JSONObject look = new JSONObject();
-                look.put("direction",Direction.NORTH);
-                look.put("type","robot");
-                look.put("steps",position.y()- robotPosition.y());
-                blocked.add(look);
-            }else if (new Position(robotPosition.x(), robotPosition.y())
-                    .isIn(new Position(position.x(),position.y()-visibility)
-                            ,new Position(position.x(),position.y()))){
-                JSONObject look = new JSONObject();
-                look.put("direction",Direction.SOUTH);
-                look.put("type","robot");
-                look.put("steps",position.y()- robotPosition.y());
-                blocked.add(look);
+            if (!avatar.getRobotName().equals(otherAvatar.getRobotName())) {
+                Position robotPosition = otherAvatar.getPosition();
+
+                if (robotPosition.isIn(new Position(position.x(), position.y())
+                        , new Position(position.x()+visibility, position.y()))) {
+                    JSONObject look = new JSONObject();
+                    look.put("direction", Direction.EAST);
+                    look.put("type", "avatar");
+                    look.put("steps", position.x() - robotPosition.x());
+                    blocked.add(look);
+                } else if (robotPosition
+                        .isIn(new Position(position.x()-visibility , position.y())
+                                , new Position(position.x(), position.y()))) {
+                    JSONObject look = new JSONObject();
+                    look.put("direction", Direction.WEST);
+                    look.put("type", "avatar");
+                    look.put("steps", position.x() + robotPosition.x());
+                    blocked.add(look);
+
+                } else if (robotPosition
+                        .isIn(new Position(position.x(), position.y() +visibility)
+                                , new Position(position.x(), position.y()))) {
+                    JSONObject look = new JSONObject();
+                    look.put("direction", Direction.NORTH);
+                    look.put("type", "avatar");
+                    look.put("steps", robotPosition.y()- position.y());
+                    blocked.add(look);
+                } else if (robotPosition
+                        .isIn(new Position(position.x(), position.y())
+                                , new Position(position.x(), position.y()-visibility))) {
+                    JSONObject look = new JSONObject();
+                    look.put("direction", Direction.SOUTH);
+                    look.put("type", "avatar");
+                    look.put("steps", position.y() - robotPosition.y());
+                    blocked.add(look);
+                }
             }
-
         }
 
         if(blocked.isEmpty()){
@@ -109,7 +111,7 @@ public class LookCommand extends Commands{
         }else {
             lookOutput.put("objects",blocked);
         }
-        avatar.setMessage(lookOutput.toString());
+        avatar.setMessage(lookOutput);
         return true;
     }
 }
