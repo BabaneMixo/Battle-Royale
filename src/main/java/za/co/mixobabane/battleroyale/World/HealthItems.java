@@ -1,10 +1,10 @@
 package za.co.mixobabane.battleroyale.World;
 
-public class MedKits implements MedKit{
+public class HealthItems implements MedKit{
     private int x ;
     private int y ;
 
-    public MedKits(int x,int y){
+    public HealthItems(int x, int y){
         this.x = x;
         this.y = y;
     }

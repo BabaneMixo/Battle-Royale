@@ -17,17 +17,17 @@ public class BackCommand extends Commands {
         JSONObject jsonObject = new JSONObject();
         int nrSteps = Integer.parseInt(arguments.get(0).toString());
         if (avatar.updatePosition(-nrSteps).equals(UpdateResponse.OK) ){
-            avatar.setMessage(jsonObject.put("message: ", "Done"));
+            avatar.setMessage(jsonObject.put("message", "Done"));
         }else if(avatar.updatePosition(-nrSteps).equals(UpdateResponse.OUTSIDE_WORLD)){
-            avatar.setMessage(jsonObject.put("message: ",
+            avatar.setMessage(jsonObject.put("message",
                     "Sorry! I cannot go outside my safe zone."));
             return false;
         }else if (avatar.updatePosition(-nrSteps).equals(UpdateResponse.OBSTRUCTED)){
-            avatar.setMessage(jsonObject.put("message: ",
+            avatar.setMessage(jsonObject.put("message",
                     "There is an obstacle in the way."));
             return false;
         }else if (avatar.updatePosition(-nrSteps).equals(UpdateResponse.ROBOT_OBSTRUCTION)){
-            avatar.setMessage(jsonObject.put("message: ",
+            avatar.setMessage(jsonObject.put("message",
                     "There is a avatar in the way."));
             return false;
         }

@@ -21,37 +21,37 @@ public class LaunchCommand extends Commands{
                 if (args == 1){ avatar.setAvatarMake("Sniper");
                     avatar.setMaxShields(5);
                     avatar.setCurrentShields(5);
-                    avatar.setDistance(5);
-                    avatar.setMaxShots(1);
-                    avatar.setShotsRemaining(1);
+                    avatar.setDistance(50);
+                    avatar.setMaxShots(10);
+                    avatar.setShotsRemaining(10);
                 } else if (args ==2) {
                     avatar.setAvatarMake("AK-47");
-                    avatar.setDistance(4);
+                    avatar.setDistance(40);
                     avatar.setCurrentShields(5);
                     avatar.setMaxShields(5);
-                    avatar.setMaxShots(2);
-                    avatar.setShotsRemaining(2);
+                    avatar.setMaxShots(20);
+                    avatar.setShotsRemaining(20);
                 } else if (args==3) {
                     avatar.setAvatarMake("Steyr AUG");
                     avatar.setMaxShields(5);
                     avatar.setCurrentShields(5);
-                    avatar.setDistance(3);
-                    avatar.setMaxShots(3);
-                    avatar.setShotsRemaining(3);
+                    avatar.setDistance(30);
+                    avatar.setMaxShots(30);
+                    avatar.setShotsRemaining(30);
                 } else if (args ==4) {
                     avatar.setAvatarMake("M4 carbine");
                     avatar.setMaxShields(5);
                     avatar.setCurrentShields(5);
-                    avatar.setDistance(2);
-                    avatar.setMaxShots(4);
-                    avatar.setShotsRemaining(4);
+                    avatar.setDistance(20);
+                    avatar.setMaxShots(40);
+                    avatar.setShotsRemaining(40);
                 } else if (args==5) {
                     avatar.setAvatarMake("Pistol");
-                    avatar.setDistance(1);
+                    avatar.setDistance(10);
                     avatar.setCurrentShields(5);
                     avatar.setMaxShields(5);
-                    avatar.setMaxShots(5);
-                    avatar.setShotsRemaining(5);
+                    avatar.setMaxShots(50);
+                    avatar.setShotsRemaining(50);
                 }
 
 
@@ -60,6 +60,7 @@ public class LaunchCommand extends Commands{
                 avatar.setMessage(launchOutput.put("message:","Maximum shields and shots should be integers and not empty."));
                 return false;
             }
+            launchOutput.put("message", "Avatar was successfully launched");
             launchOutput.put("Avatar Type", avatar.getAvatarMake());
             launchOutput.put("position",avatar.getPosition());
             launchOutput.put("visibility",avatar.getVisibility());

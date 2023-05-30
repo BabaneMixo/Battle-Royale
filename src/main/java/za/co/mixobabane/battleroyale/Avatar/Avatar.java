@@ -3,7 +3,7 @@ package za.co.mixobabane.battleroyale.Avatar;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import za.co.mixobabane.battleroyale.Commands.Commands;
-import za.co.mixobabane.battleroyale.World.MedKits;
+import za.co.mixobabane.battleroyale.World.HealthItems;
 import za.co.mixobabane.battleroyale.World.Obstacles;
 import za.co.mixobabane.battleroyale.World.World;
 
@@ -119,14 +119,9 @@ import java.util.concurrent.ThreadLocalRandom;
         }
 
         public void setMedkit() {
-            ArrayList<MedKits> medKits = world.generateMedKits();
-            for (MedKits medkit1: medKits) {
-                if (new Position(medkit1.getBottomLeftX(), medkit1.getBottomLeftY())
-                        .isIn(new Position(position.x(), position.y())
-                                , new Position(position.x(), position.y()))) {
-                }
-            }
+            this.Medkit = Medkit+1;
         }
+
 
         public int getMedkit() {
             return Medkit;
@@ -226,6 +221,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
         public JSONObject getState(){
             JSONObject state = new JSONObject();
+            state.put("message","Avatar current state");
             state.put("position",this.getPosition());
             state.put("direction",this.getCurrentDirection());
             state.put("shields",this.getCurrentShields());
@@ -238,14 +234,43 @@ import java.util.concurrent.ThreadLocalRandom;
          * This is a response method, it takes all the information of the robot from the world
          * and combines its data and state into a JSONObject */
 
-        public String setUserOutput() throws IOException{
+        public String Response() throws IOException{
             JSONObject outputString = new JSONObject();
             JSONObject state = getState();
             outputString.put("result",getResult());
+
             outputString.put("data",getMessage());
             outputString.put("state",state);
             return outputString.toString(4);
         }
+
+        public String tabularResponse(){
+            JSONObject message = getMessage();
+            JSONObject state = getState();
+            String health = state.get("shields").toString();
+            String shots = state.get("shots").toString();
+            String position = state.get("position").toString();
+            String direction = state.get("direction").toString();
+            String status = state.get("status").toString();
+            String type = this.avatarMake.toUpperCase();
+            String result = message.get("message").toString();
+
+
+            String response =
+                    "---------------------------------------\n"+
+                    "Avatar          |   " +getRobotName().toUpperCase()+"\n"+
+                    "Gun type        |   " +(String) type+"\n"+
+                    "Health          |   " +health+"\n"+
+                    "Shots           |   " +shots+ "\n"+
+                    "Position        |   " +position.substring(8)+"\n"+
+                    "Direction       |   " +direction+"\n"+
+                    "Status          |   " +status+"\n"+
+                    "Message         |   " +result+"\n"
+                    ;
+            return response;
+        }
+
+
 
         /**
          * This method updates a robot's position by checking its current position
@@ -256,6 +281,7 @@ import java.util.concurrent.ThreadLocalRandom;
         public UpdateResponse updatePosition (int nrSteps) {
             int newX = this.position.x();
             int newY = this.position.y();
+            ArrayList<HealthItems> healthItemsArrayList = world.generateMedKits();
 
             if (Direction.NORTH.equals(this.currentDirection)) {
                 newY = newY + nrSteps;
@@ -269,9 +295,16 @@ import java.util.concurrent.ThreadLocalRandom;
             }
 
             Position newPosition = new Position(newX, newY);
-            if (newPosition.isIn(upperConstraint, lowerConstraint)) {
+            if (newPosition.isIn(upperConstraint, lowerConstraint) ) {
                 this.position = newPosition;
-                return UpdateResponse.OK;
+                for (HealthItems healthItems : healthItemsArrayList) {
+                    if (new Position(healthItems.getBottomLeftX(), healthItems.getBottomLeftY())
+                            .isIn(new Position(position.x(), position.y())
+                                    , new Position(position.x(), position.y()))) {
+                        setMedkit();
+                    }
+                    return UpdateResponse.OK;
+                }
             }
             return UpdateResponse.OUTSIDE_WORLD;
         }

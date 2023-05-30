@@ -79,7 +79,7 @@ public class PlayerHandler implements Runnable {
                         avatar.handleCommand(command);
                         avatars.add(avatar);
                         world.addRobotList(avatars);
-                        broadCastMessage(avatar.setUserOutput());
+                        broadCastMessage(avatar.tabularResponse());
                         playersList.add(jsonObject.get("name").toString());
                     }
 
@@ -91,33 +91,34 @@ public class PlayerHandler implements Runnable {
                             avatars.remove(avatar);
                             broadCastMessage("DEAD");
 
+
                         }
                         if (avatar.getRobotName().equals(jsonObject.get("name")) && thisCommand.equalsIgnoreCase("reload")
                                 && avatars.contains(avatar)) {
                             avatar.handleCommand(command);
-                            broadCastMessage(avatar.setUserOutput());
+                            broadCastMessage(avatar.Response());
                             Thread.sleep(avatar.getReloadSeconds()*1000L);
                             avatar.setShotsRemaining(avatar.getShots());
                             avatar.setStatus(Status.NORMAL);
                             JSONObject reload = new JSONObject();
                             avatar.setMessage(reload.put("message","Done"));
-                            broadCastMessage(avatar.setUserOutput());
+                            broadCastMessage(avatar.Response());
 
                         }else if (avatar.getRobotName().equals(jsonObject.get("name")) && thisCommand.equalsIgnoreCase("repair")
                                 &&avatars.contains(avatar)) {
                             avatar.handleCommand(command);
-                            broadCastMessage(avatar.setUserOutput());
+                            broadCastMessage(avatar.Response());
                             Thread.sleep(avatar.getRepairSeconds()*1000L);
                             avatar.setCurrentShields(avatar.getShields());
                             avatar.setStatus(Status.NORMAL);
 
                             JSONObject reload = new JSONObject();
                             avatar.setMessage(reload.put("message","Done"));
-                            broadCastMessage(avatar.setUserOutput());
+                            broadCastMessage(avatar.Response());
                         }
                         else if (avatar.getRobotName().equals(jsonObject.get("name"))&&avatars.contains(avatar)) {
                             avatar.handleCommand(command);
-                            broadCastMessage(avatar.setUserOutput());
+                            broadCastMessage(avatar.tabularResponse());
                         }
 
                     }
